@@ -13,7 +13,7 @@
             Currency Converting Application
         </div>
         <div class="mr-20 ml-20 mt-10">
-            <form action="/submit-form" method="POST">
+            <form action="http://localhost:8080/javaImplementation/getValue" method="GET">
                 <div class="grid grid-rows-3 text-2xl border rounded border-gray-600  p-10  m-3 origin-center bg-white mr-10 ml-10">
                     
                         <div class=" grid grid-cols-3 p-5">
@@ -33,26 +33,13 @@
                                 <input type="text" name="amount" class="border rounded border-gray-600 p-3">
                             </div>
                             <div>
-                                
-                                <select name="itemList"class="border rounded border-gray-600 p-3" onchange="getCurrencyList()">
-                                    <option value="AED">
-                                        AED 
-                                    </option>
-                                    <option value="AFN">
-                                        AFN
-                                    </option>
-                                </select>
+                                <div>
+                                <input type="text" name="valueFrom" class="border rounded border-gray-600 p-3">
+                            </div>
                                 
                             </div>
                             <div>
-                                <select name="itemList"class="border rounded border-gray-600 p-3" onchange="getCurrencyList()">
-                                    <option value="AED">
-                                        AED 
-                                    </option>
-                                    <option value="AFN">
-                                        AFN
-                                    </option>
-                                </select>
+                                <input type="text" name="valueTo" class="border rounded border-gray-600 p-3">
                             </div>
 
                         </div>
@@ -72,6 +59,14 @@
 
     </div>
   </div>
-  <script src="mainFunctions.js">  </script>
+  <script >  
+    fetch('/getValue')
+    .then(response => response.json())
+    .then(data => {
+        console.log('Received data:', data);
+        
+    })
+    .catch(error => console.error('Error fetching data:', error));
+  </script>
 </body>
 </html>

@@ -19,31 +19,16 @@ import javax.servlet.http.HttpServletResponse;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 @WebServlet("/getValue")
 public class GetValue extends HttpServlet{
-    protected void doPost(HttpServletRequest request, HttpServletResponse responseToFront) throws ServletException,IOException{
+    protected void doGet(HttpServletRequest request, HttpServletResponse responseToFront) throws ServletException,IOException{
 
         StringBuilder  inPuts= new StringBuilder();
         BufferedReader reader1 = request.getReader();
 
-        try{
-            String line1;
-            while((line1=reader1.readLine())!=null){
-                inPuts.append(line1);
-            }
-        }catch (Exception e){
-            System.out.println("This is Reading section of get data from front!");
-            e.printStackTrace();
-            return;
-        }
+        String amountS = request.getParameter("amount");
+        String valueFrom = request.getParameter("valueFrom");
+        String valueTo = request.getParameter("valueTo");
 
-        reader1.close();
-        String jsonString = inPuts.toString();
-        Gson gson = new Gson();
-        JsonObject inputJson = gson.fromJson(jsonString, JsonObject.class);
-
-        String valueFrom = inputJson.get("valueFrom").getAsString();
-        String valueTo = inputJson.get("valueTo").getAsString();
-        String amountIn = inputJson.get("amount").getAsString();
-        float amount = Float.parseFloat(amountIn);
+        float amount = Float.parseFloat(amountS);
 
 
         String apiURL = "https://openexchangerates.org/api/latest.json?app_id=5d299c0b2fcf497cabd03aa07c95cf8f";
@@ -72,7 +57,7 @@ public class GetValue extends HttpServlet{
 
             reader.close();
             float convertAmount = (amount/from)*to;
-            String send =  amount + " " + valueFrom + " " + "equals to " + amount + " " + valueTo;
+            String send =  amount + " " + valueFrom + " " + "equals to " + convertAmount + " " + valueTo;
             System.out.println(send);
 
             //Create send data
@@ -97,5 +82,7 @@ public class GetValue extends HttpServlet{
             System.out.println(e);
         }
     }
+
+
 
 }
