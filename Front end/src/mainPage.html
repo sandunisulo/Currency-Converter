@@ -13,18 +13,18 @@
             Currency Converting Application
         </div>
         <div class="mr-20 ml-20 mt-10">
-            <form>
+            <form action="/submit-form" method="POST">
                 <div class="grid grid-rows-3 text-2xl border rounded border-gray-600  p-10  m-3 origin-center bg-white mr-10 ml-10">
                     
                         <div class=" grid grid-cols-3 p-5">
                             <div>
-                                <label for="amount">Amount:</label>
+                                <label >Amount:</label>
                             </div>
                             <div>
-                                <label for="from">From:</label>
+                                <label >From:</label>
                             </div>
                             <div>
-                                <label for="to">To:</label>
+                                <label >To:</label>
                             </div>
 
                         </div>
@@ -33,15 +33,32 @@
                                 <input type="text" name="amount" class="border rounded border-gray-600 p-3">
                             </div>
                             <div>
-                                <input type="text" name="amount" class="border rounded border-gray-600 p-3">
+                                
+                                <select name="itemList"class="border rounded border-gray-600 p-3" onchange="getCurrencyList()">
+                                    <option value="AED">
+                                        AED 
+                                    </option>
+                                    <option value="AFN">
+                                        AFN
+                                    </option>
+                                </select>
+                                
                             </div>
                             <div>
-                                <input type="text" name="amount" class="border rounded border-gray-600 p-3">
+                                <select name="itemList"class="border rounded border-gray-600 p-3" onchange="getCurrencyList()">
+                                    <option value="AED">
+                                        AED 
+                                    </option>
+                                    <option value="AFN">
+                                        AFN
+                                    </option>
+                                </select>
                             </div>
 
                         </div>
                         <div class="mt-4">
-                            <button class="absolute right-1 mr-40 border-2 rounded-lg p-3 bg-blue-500 pr-10 pl-10 hover:bg-blue-300">Convert
+                          
+                            <button input type="submit" class="absolute right-1 mr-40 border-2 rounded-lg p-3 bg-blue-500 pr-10 pl-10 hover:bg-blue-300">Convert
                             </button>
                         </div>
                         
@@ -55,5 +72,6 @@
 
     </div>
   </div>
+  <script src="mainFunctions.js">  </script>
 </body>
 </html>
