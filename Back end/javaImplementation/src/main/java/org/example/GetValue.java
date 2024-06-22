@@ -21,8 +21,10 @@ import javax.servlet.http.HttpServletResponse;
 public class GetValue extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse responseToFront) throws ServletException,IOException{
 
-        StringBuilder  inPuts= new StringBuilder();
-        BufferedReader reader1 = request.getReader();
+        responseToFront.setHeader("Access-Control-Allow-Origin", "*"); // Allow requests from any origin
+        responseToFront.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Allow specified methods
+        responseToFront.setHeader("Access-Control-Allow-Headers", "Content-Type"); // Allow Content-Type header
+
 
         String amountS = request.getParameter("amount");
         String valueFrom = request.getParameter("valueFrom");
@@ -50,21 +52,18 @@ public class GetValue extends HttpServlet{
             JsonObject linkInput = gson2.fromJson(response1.toString(),JsonObject.class);
 
             JsonObject rates = linkInput.getAsJsonObject("rates");
-            Float from = rates.get(valueFrom).getAsFloat();
-            Float to = rates.get(valueTo).getAsFloat();
-            System.out.println(from);
+            float from = rates.get(valueFrom).getAsFloat();
+            float to = rates.get(valueTo).getAsFloat();
 
 
             reader.close();
             float convertAmount = (amount/from)*to;
             String send =  amount + " " + valueFrom + " " + "equals to " + convertAmount + " " + valueTo;
-            System.out.println(send);
 
             //Create send data
 
             JsonObject sendObject = new JsonObject();
-            sendObject.addProperty("status","succsess");
-            sendObject.addProperty("convertValue" , send);
+            sendObject.addProperty("convertedValue" , send);
 
             responseToFront.setContentType("application/json");
             responseToFront.setCharacterEncoding("UTF-8");
@@ -79,7 +78,7 @@ public class GetValue extends HttpServlet{
             conn.disconnect();
 
         }catch(Exception e){
-            System.out.println(e);
+            System.out.println("Error in reading"+e);
         }
     }
 
